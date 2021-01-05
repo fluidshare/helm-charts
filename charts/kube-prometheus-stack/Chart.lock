@@ -1,0 +1,6 @@
+dependencies:
+- name: kube-state-metrics
+  repository: https://charts.helm.sh/stable
+  version: 2.9.4
+digest: sha256:1cc66d16ce4c6e9ba654d60a85cae6a47790f3b5dd0fe786d0dc94320a2d5c7a
+generated: "2021-01-05T15:19:38.670884-07:00"
