@@ -1,0 +1,27 @@
+# Default values for kube-prometheus-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Provide a name in place of kube-prometheus-stack for `app:` labels
+##
+nameOverride: ""
+
+## Override the deployment namespace
+##
+namespaceOverride: ""
+
+## Provide a name to substitute for the full names of resources
+##
+fullnameOverride: ""
+
+## Provide tolerations for scheduling
+##
+tolerations: {}
+  # - key: "monitoring-node-pool"
+  #   operator: "Exists"
+  #   effect: "NoSchedule"
+
+## Alert Manager Rules
+##
+rules:
+  runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
