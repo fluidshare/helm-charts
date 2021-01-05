@@ -1,10 +1,9 @@
-name: Lint Code Base
+name: pr
 
 on: pull_request
 
 jobs:
-  build:
-    name: Lint Code Base
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code

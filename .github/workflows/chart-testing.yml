@@ -1,9 +1,9 @@
-name: Lint and Test Charts
+name: pr
 
 on: pull_request
 
 jobs:
-  lint-test:
+  chart-testing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
