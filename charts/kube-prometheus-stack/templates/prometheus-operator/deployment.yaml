@@ -59,7 +59,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: {{ template "kube-prometheus-stack.operator.serviceAccountName" . }}
-    {{- if .Values.prometheusOperator.tolerations }}
+    {{- with .Values.prometheusOperator.tolerations }}
       tolerations:
-        {{- toYaml .Values.prometheusOperator.tolerations | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
