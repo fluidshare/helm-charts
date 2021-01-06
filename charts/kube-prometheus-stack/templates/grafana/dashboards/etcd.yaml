@@ -1029,8 +1029,8 @@ data:
             "list": [
                 {
                     "current": {
-                        "text": "Prometheus",
-                        "value": "Prometheus"
+                        "text": "prometheus",
+                        "value": "prometheus"
                     },
                     "hide": 0,
                     "label": null,
