@@ -19,7 +19,7 @@ fullnameOverride: ""
 alertmanager:
   rules:
     runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
-  tolerations: {}
+  tolerations: []
     # - key: "foo"
     #   operator: "Exists"
     #   effect: "NoSchedule"
@@ -27,7 +27,7 @@ alertmanager:
 ## Configuration for Prometheus
 ##
 prometheus:
-  tolerations: {}
+  tolerations: []
     # - key: "foo"
     #   operator: "Exists"
     #   effect: "NoSchedule"
@@ -35,7 +35,7 @@ prometheus:
 ## Configuration for Prometheus Operator
 ##
 prometheusOperator:
-  tolerations: {}
+  tolerations: []
     # - key: "foo"
     #   operator: "Exists"
     #   effect: "NoSchedule"
