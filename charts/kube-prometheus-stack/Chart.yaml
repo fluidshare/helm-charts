@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kube-prometheus-stack
 description: A Prometheus stack for Kubernetes.
-version: 0.1.0
+version: 0.1.1
 appVersion: 2.22.1
 type: application
 keywords:
