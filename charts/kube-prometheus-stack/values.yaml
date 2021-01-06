@@ -14,23 +14,33 @@ namespaceOverride: ""
 ##
 fullnameOverride: ""
 
-## Provide tolerations for scheduling
+## Configuration for Alert Manager
 ##
-tolerations: {}
-  # - key: "monitoring-node-pool"
-  #   operator: "Exists"
-  #   effect: "NoSchedule"
+alertmanager:
+  rules:
+    runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
+  tolerations: {}
+    # - key: "foo"
+    #   operator: "Exists"
+    #   effect: "NoSchedule"
 
-## Alert Manager Rules
+## Configuration for Prometheus
 ##
-rules:
-  runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
+prometheus:
+  tolerations: {}
+    # - key: "foo"
+    #   operator: "Exists"
+    #   effect: "NoSchedule"
 
 ## Configuration for kube-state-metrics subchart
 ##
 kube-state-metrics:
   podSecurityPolicy:
     enabled: true
+  tolerations: []
+    # - key: "foo"
+    #   operator: "Exists"
+    #   effect: "PreferNoSchedule"
 
 ## Configuration for prometheus-node-exporter subchart
 ##
@@ -40,3 +50,20 @@ prometheus-node-exporter:
   extraArgs:
     - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
     - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+  tolerations: []
+    # - key: "foo"
+    #   operator: "Exists"
+    #   effect: "PreferNoSchedule"
+
+## Configuration for grafana subchart
+##
+grafana:
+  adminPassword: prom-operator
+  ingress:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: "nginx"
+    tolerations: []
+      # - key: "foo"
+      #   operator: "Exists"
+      #   effect: "PreferNoSchedule"
