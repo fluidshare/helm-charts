@@ -25,8 +25,8 @@ spec:
     runAsNonRoot: true
     runAsUser: 1000
     fsGroup: 2000
-  {{- if .Values.tolerations }}
+  {{- if .Values.alertmanager.tolerations }}
   tolerations:
-    {{- toYaml .Values.tolerations | indent 4 }}
+    {{- toYaml .Values.alertmanager.tolerations | indent 4 }}
   {{- end }}
   portName: web

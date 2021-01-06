@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kube-prometheus-stack
 description: A Prometheus stack for Kubernetes.
-version: 0.5.0
+version: 0.6.0
 appVersion: 2.22.1
 type: application
 keywords:
@@ -20,6 +20,6 @@ dependencies:
   - name: prometheus-node-exporter
     version: "1.12.*"
     repository: https://prometheus-community.github.io/helm-charts
-  # - name: grafana
-  #   version: "6.1.*"
-  #   repository: https://grafana.github.io/helm-charts
+  - name: grafana
+    version: "6.1.*"
+    repository: https://grafana.github.io/helm-charts

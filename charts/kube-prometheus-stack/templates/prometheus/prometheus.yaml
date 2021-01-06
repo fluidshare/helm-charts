@@ -48,8 +48,8 @@ spec:
   serviceMonitorSelector:
     matchLabels:
       release: {{ $.Release.Name | quote }}
-  {{- if .Values.tolerations }}
+  {{- if .Values.prometheus.tolerations }}
   tolerations:
-    {{- toYaml .Values.tolerations | indent 4 }}
+    {{- toYaml .Values.prometheus.tolerations | indent 4 }}
   {{- end }}
   version: v2.22.1
