@@ -1,0 +1,65 @@
+{{- $namespace := printf "%s" (include "kube-prometheus-stack.namespace" .) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "kube-prometheus-stack.fullname" . }}-operator
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: {{ template "kube-prometheus-stack.name" . }}-operator
+{{ include "kube-prometheus-stack.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "kube-prometheus-stack.name" . }}-operator
+      release: {{ $.Release.Name | quote }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kube-prometheus-stack.name" . }}-operator
+        {{- include "kube-prometheus-stack.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ template "kube-prometheus-stack.name" . }}
+          image: quay.io/prometheus-operator/prometheus-operator:v0.44.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --kubelet-service=kube-system/{{ template "kube-prometheus-stack.fullname" . }}-kubelet
+            - --localhost=127.0.0.1
+            - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.44.0
+            - --config-reloader-image=docker.io/jimmidyson/configmap-reload:v0.4.0
+            - --config-reloader-cpu=100m
+            - --config-reloader-memory=50Mi
+            - --web.enable-tls=true
+            - --web.cert-file=/cert/cert
+            - --web.key-file=/cert/key
+            - --web.listen-address=:8443
+            - --web.tls-min-version=VersionTLS13
+          ports:
+            - containerPort: 8443
+              name: https
+          ports:
+            - containerPort: 8080
+              name: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: tls-secret
+              mountPath: /cert
+              readOnly: true
+      volumes:
+        - name: tls-secret
+          secret:
+            defaultMode: 420
+            secretName: {{ template "kube-prometheus-stack.fullname" . }}-admission
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: {{ template "kube-prometheus-stack.operator.serviceAccountName" . }}
+    {{- if .Values.prometheusOperator.tolerations }}
+      tolerations:
+        {{- toYaml .Values.prometheusOperator.tolerations | indent 8 }}
+    {{- end }}

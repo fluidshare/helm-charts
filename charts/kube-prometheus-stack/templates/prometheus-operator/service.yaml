@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "kube-prometheus-stack.operator.fullname" . }}
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: {{ template "kube-prometheus-stack.operator.name" . }}
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ template "kube-prometheus-stack.operator.name" . }}
+    release: {{ $.Release.Name | quote }}
+  ports:
+    - name: https
+      port: 443
+      targetPort: https

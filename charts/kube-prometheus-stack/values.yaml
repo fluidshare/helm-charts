@@ -32,6 +32,14 @@ prometheus:
     #   operator: "Exists"
     #   effect: "NoSchedule"
 
+## Configuration for Prometheus Operator
+##
+prometheusOperator:
+  tolerations: {}
+    # - key: "foo"
+    #   operator: "Exists"
+    #   effect: "NoSchedule"
+
 ## Configuration for kube-state-metrics subchart
 ##
 kube-state-metrics:
