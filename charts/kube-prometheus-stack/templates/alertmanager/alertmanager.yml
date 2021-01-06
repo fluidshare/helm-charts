@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: {{ template "kube-prometheus-stack.alertmanager.fullname" . }}
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: {{ template "kube-prometheus-stack.alertmanager.name" . }}
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
+spec:
+  image: quay.io/prometheus/alertmanager:v0.21.0
+  version: v0.21.0
+  replicas: 1
+  listenLocal: false
+  serviceAccountName: {{ template "kube-prometheus-stack.alertmanager.serviceAccountName" . }}
+  externalUrl: http://{{ template "kube-prometheus-stack.alertmanager.fullname" . }}.{{ template "kube-prometheus-stack.namespace" . }}:9093
+  paused: false
+  logFormat: logfmt
+  logLevel: info
+  retention: 120h
+  alertmanagerConfigSelector: {}
+  alertmanagerConfigNamespaceSelector: {}
+  routePrefix: /
+  securityContext:
+    runAsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 2000
+  {{- if .Values.tolerations }}
+  tolerations:
+    {{- toYaml .Values.tolerations | indent 4 }}
+  {{- end }}
+  portName: web

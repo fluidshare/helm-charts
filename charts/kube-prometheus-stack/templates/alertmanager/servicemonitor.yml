@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "kube-prometheus-stack.alertmanager.fullname" . }}
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: {{ template "kube-prometheus-stack.alertmanager.name" . }}
+    {{- include "kube-prometheus-stack.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "kube-prometheus-stack.alertmanager.name" . }}
+      release: {{ $.Release.Name | quote }}
+      self-monitor: "true"
+  namespaceSelector:
+    matchNames:
+      - {{ printf "%s" (include "kube-prometheus-stack.namespace" .) | quote }}
+  endpoints:
+    - port: web
+      path: "/metrics"
