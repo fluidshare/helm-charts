@@ -5,6 +5,7 @@ metadata:
   name: {{ printf "%s-%s" (include "kube-prometheus-stack.fullname" $) "namespace-by-workload" | trunc 63 | trimSuffix "-" }}
   labels:
     app: {{ template "kube-prometheus-stack.name" $ }}-grafana
+    grafana_dashboard: "1"
     {{- include "kube-prometheus-stack.labels" $ | indent 4 }}
 data:
   namespace-by-workload.json: |-
