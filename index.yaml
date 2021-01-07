@@ -236,6 +236,22 @@ entries:
   nextjs:
   - apiVersion: v2
     appVersion: 10.0.5
+    created: "2021-01-07T23:50:39.370223518Z"
+    description: A chart for NextJS v10+.
+    digest: 3057bcc732843a319c0cb47441c5189295a8cea1286159da741e2c7f497761f0
+    icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
+    keywords:
+    - nextjs
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: nextjs
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/nextjs-0.2.0/nextjs-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 10.0.5
     created: "2021-01-07T20:11:26.253870681Z"
     description: A chart for NextJS v10+.
     digest: edcfb06a4f6cfa97dd3f5d6ad83be07d141dccea8f463700884250fc9cb84148
