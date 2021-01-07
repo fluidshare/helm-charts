@@ -67,6 +67,11 @@ prometheus-node-exporter:
 ##
 grafana:
   adminPassword: prom-operator
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
   ingress:
     enabled: true
     annotations: {}
