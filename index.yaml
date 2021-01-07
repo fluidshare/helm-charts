@@ -233,4 +233,21 @@ entries:
     urls:
     - https://github.com/fluidshare/helm-charts/releases/download/kube-prometheus-stack-0.1.0/kube-prometheus-stack-0.1.0.tgz
     version: 0.1.0
+  nextjs:
+  - apiVersion: v2
+    appVersion: 10.0.5
+    created: "2021-01-07T20:11:26.253870681Z"
+    description: A chart for NextJS v10+.
+    digest: edcfb06a4f6cfa97dd3f5d6ad83be07d141dccea8f463700884250fc9cb84148
+    icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
+    keywords:
+    - nextjs
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: nextjs
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/nextjs-0.1.0/nextjs-0.1.0.tgz
+    version: 0.1.0
 generated: "2021-01-06T21:38:58.159551108Z"
