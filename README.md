@@ -14,6 +14,3 @@ helm repo add fluidshare https://fluidshare.github.io/helm-charts
 ```
 
 You can then run `helm search repo fluidshare` to see the charts.
-
-<!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
-Chart documentation is available in [fluidshare directory](https://github.com/fluidshare/helm-charts/blob/main/charts/fluidshare/README.md).
