@@ -3,6 +3,35 @@ entries:
   kube-prometheus-stack:
   - apiVersion: v2
     appVersion: 2.22.1
+    created: "2021-01-07T00:08:15.325170488Z"
+    dependencies:
+    - name: kube-state-metrics
+      repository: https://charts.helm.sh/stable
+      version: 2.9.*
+    - name: prometheus-node-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 1.12.*
+    - name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.1.*
+    description: A Prometheus stack for Kubernetes.
+    digest: 223f679b06119f4ac072c36bacdd97e2ba50a0b9088a12e0fc558916b6f7e44e
+    keywords:
+    - prometheus
+    - kube-prometheus
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: kube-prometheus-stack
+    sources:
+    - https://github.com/prometheus-community/helm-charts
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/kube-prometheus-stack-0.1.7/kube-prometheus-stack-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 2.22.1
     created: "2021-01-06T23:50:34.541596481Z"
     dependencies:
     - name: kube-state-metrics
