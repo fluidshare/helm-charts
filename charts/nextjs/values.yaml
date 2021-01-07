@@ -1,0 +1,59 @@
+# Default values for nextjs.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Provide a name in place of nextjs for `app:` labels
+##
+nameOverride: ""
+
+## Override the deployment namespace
+##
+namespaceOverride: ""
+
+## Provide a name to substitute for the full names of resources
+##
+fullnameOverride: ""
+
+## Initial replica count for the deployment
+##
+replicaCount: 1
+
+## Image containing the NextJS application
+##
+image:
+  repository: ellisio/nextjs
+  tag: "10.0.5"
+  pullPolicy: IfNotPresent
+
+## Application ingress
+##
+ingress:
+  enabled: false
+
+  ## Ingress class name (Enable to use on Kubernetes >= 1.18)
+  ##
+  # ingressClassName: nginx
+
+  ## Annotations for the ingress (TODO: use ingressClassName for Kubernetes >= 1.18)
+  ##
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+
+  ## Hosts to use for the ingress
+  ##
+  host: nextjs.domain.com
+
+  ## Path to use for ingress rules
+  ##
+  path: /
+
+  ## TLS configurations for the Ingress
+  ##
+  # tls: nextjs-tls
+
+## Tolerations for the pods
+##
+tolerations: []
+  # - key: foo
+  #   operator: Exists
+  #   effect: PreferNoSchedule
