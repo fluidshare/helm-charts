@@ -1,0 +1,12 @@
+apiVersion: v2
+name: nextjs
+description: A chart for NextJS v10+.
+icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
+version: 0.1.0
+appVersion: 10.0.5
+type: application
+keywords:
+  - nextjs
+maintainers:
+  - name: ellisio
+    email: aellis@fluidtruck.com
