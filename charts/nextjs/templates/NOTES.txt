@@ -1,2 +1,11 @@
-{{ $.Chart.Name }} has been installed. Check its status by running:
+{{ $.Chart.Name }} has been installed.
+
+Check its status by running:
+
   kubectl --namespace {{ template "chart.namespace" . }} get pods -l "release={{ $.Release.Name }}"
+
+{{- if .Values.ingress.enabled }}
+Access the application using:
+
+  http://{{ tpl .Values.ingress.host . }}{{ .Values.ingress.path }}
+{{- end -}}
