@@ -10,3 +10,6 @@ trim_trailing_whitespace = true
 
 [*.{md,mdx}]
 trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4

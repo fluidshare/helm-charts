@@ -1,0 +1,84 @@
+## Provide a name in place of nextjs for `app:` labels
+##
+nameOverride: ""
+
+## Override the deployment namespace
+##
+namespaceOverride: ""
+
+## Provide a name to substitute for the full names of resources
+##
+fullnameOverride: ""
+
+## The Docker image to use.
+##
+image:
+  repository: locustio/locust
+  tag: 1.4.1
+  pullPolicy: IfNotPresent
+
+## The load test configuration.
+##
+loadtest:
+  ## The name of your test
+  ##
+  name: example
+
+  ## The host you will load test
+  ##
+  locust_host: https://www.google.com
+
+  ## A list of extra python pip packages to install
+  ##
+  pip_packages: []
+
+## Master Configuration
+##
+master:
+  ## Log level. Can be INFO or DEBUG
+  ##
+  logLevel: INFO
+
+  ## Resources for the locust master
+  ##
+  resources: {}
+    # limits:
+    #   cpu: 2000m
+    #   memory: 1024Mi
+    # requests:
+    #   cpu: 1000m
+    #   memory: 1024Mi
+
+## Worker Configuration
+##
+worker:
+  ## Log level. Can be INFO or DEBUG
+  ##
+  logLevel: INFO
+
+  ## Initial replica count.
+  ##
+  replicaCount: 1
+
+  ## HPA Configuration
+  ##
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 40
+
+  ## Resources for the locust worker. Should be configured if you are using HPA.
+  ##
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 256Mi
+    # requests:
+    #   cpu: 500m
+    #   memory: 256Mi
+
+## Ingress Configuration
+##
+ingress:
+  host: chart-example.local
