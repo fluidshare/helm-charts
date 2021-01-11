@@ -1,0 +1,17 @@
+{{- if .Values.worker.hpa.enabled }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "chart.fullname" . }}
+  labels:
+    component: "worker"
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    apiVersion: apps/v1
+    name: {{ template "chart.fullname" . }}-worker
+  minReplicas: {{ .Values.worker.hpa.minReplicas }}
+  maxReplicas: {{ .Values.worker.hpa.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.worker.hpa.targetCPUUtilizationPercentage }}
+{{- end }}
