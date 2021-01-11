@@ -244,6 +244,17 @@ entries:
     urls:
     - https://github.com/fluidshare/helm-charts/releases/download/kube-prometheus-stack-0.1.0/kube-prometheus-stack-0.1.0.tgz
     version: 0.1.0
+  locust:
+  - apiVersion: v2
+    appVersion: 1.4.1
+    created: "2021-01-11T23:57:05.66405071Z"
+    description: A Helm chart to launch Locust tests.
+    digest: 22c09ef66d9ddb6a1b2157a11fbadbfc344221ddfde678305c4a2cf3cc02e3af
+    name: locust
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/locust-0.1.0/locust-0.1.0.tgz
+    version: 0.1.0
   nextjs:
   - apiVersion: v2
     appVersion: 10.0.5
