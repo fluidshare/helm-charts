@@ -1,16 +1,5 @@
 apiVersion: v1
 entries:
-  chart:
-  - apiVersion: v2
-    appVersion: 1.4.1
-    created: "2021-01-11T23:55:56.703844747Z"
-    description: A Helm chart to launch Locust tests.
-    digest: cb13f50b53455134d7387ceaf1f8a34cfb5566fb7e1d4b9dbe3f394619f14164
-    name: chart
-    type: application
-    urls:
-    - https://github.com/fluidshare/helm-charts/releases/download/chart-0.1.0/chart-0.1.0.tgz
-    version: 0.1.0
   kube-prometheus-stack:
   - apiVersion: v2
     appVersion: 2.22.1
