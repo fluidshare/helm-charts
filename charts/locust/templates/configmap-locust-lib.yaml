@@ -1,4 +1,4 @@
-{{- if .Values.enableDefaultConfig -}}
+{{- if eq .Values.loadtest.configmaps.lib "" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,4 +7,4 @@ metadata:
     {{- include "chart.labels" . | nindent 4 }}
 data:
   {{- ($.Files.Glob (printf "locustfiles/%s/lib/*" .Values.loadtest.name)).AsConfig | nindent 2 }}
-{{- end -}}
+{{- end }}

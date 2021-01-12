@@ -17,10 +17,6 @@ image:
   tag: 1.4.1
   pullPolicy: IfNotPresent
 
-## Set to false to disable the default config.
-##
-enableDefaultConfig: true
-
 ## The load test configuration.
 ##
 loadtest:
@@ -35,6 +31,12 @@ loadtest:
   ## A list of extra python pip packages to install
   ##
   pip_packages: []
+
+  ## Config map overrides.
+  ##
+  configmaps:
+    lib: ""
+    locustfile: ""
 
 ## Master Configuration
 ##
