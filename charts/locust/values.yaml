@@ -26,7 +26,7 @@ loadtest:
 
   ## The host you will load test
   ##
-  locust_host: https://www.google.com
+  locust_host: ""
 
   ## A list of extra python pip packages to install
   ##
