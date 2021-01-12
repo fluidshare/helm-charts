@@ -17,6 +17,10 @@ image:
   tag: 1.4.1
   pullPolicy: IfNotPresent
 
+## Set to false to disable the default config.
+##
+enableDefaultConfig: true
+
 ## The load test configuration.
 ##
 loadtest:
