@@ -236,6 +236,16 @@ entries:
   locust:
   - apiVersion: v2
     appVersion: 1.4.1
+    created: "2021-01-12T01:27:39.865121693Z"
+    description: A Helm chart to launch Locust tests.
+    digest: a9ba8c058f44d7aa885e4c62334ba0898b48ab1b9f3e68d5f6dee24086f7c7ec
+    name: locust
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/locust-0.4.1/locust-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: 1.4.1
     created: "2021-01-12T00:40:57.050209105Z"
     description: A Helm chart to launch Locust tests.
     digest: ca8fe3acb6950cd36108b0c55e9c9d2190cc1d1ab0a17a4507a3b9dc5b18c437
