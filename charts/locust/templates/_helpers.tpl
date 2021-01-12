@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "chart.name" -}}
+{{- define "locust.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "chart.fullname" -}}
+{{- define "locust.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "chart.chart" -}}
+{{- define "locust.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "chart.labels" -}}
-helm.sh/chart: {{ include "chart.chart" . }}
-{{ include "chart.selectorLabels" . }}
+{{- define "locust.labels" -}}
+helm.sh/chart: {{ include "locust.chart" . }}
+{{ include "locust.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,9 +46,25 @@ loadtest: {{ .Values.loadtest.name }}
 {{/*
 Selector labels
 */}}
-{{- define "chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "chart.name" . }}
+{{- define "locust.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "locust.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app: locust
 loadtest: {{ .Values.loadtest.name }}
 {{- end }}
+
+{{- define "locust.configmap_lib" -}}
+{{ if eq .Values.loadtest.configmaps.lib "" -}}
+{{ template "locust.fullname" . }}-lib
+{{- else -}}
+{{ printf .Values.loadtest.configmaps.lib -}}
+{{ end }}
+{{- end -}}
+
+{{- define "locust.configmap_locustfile" -}}
+{{ if eq .Values.loadtest.configmaps.locustfile "" -}}
+{{ template "locust.fullname" . }}-locustfile
+{{- else -}}
+{{ printf .Values.loadtest.configmaps.locustfile -}}
+{{ end }}
+{{- end -}}

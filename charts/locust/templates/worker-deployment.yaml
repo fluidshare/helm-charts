@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "chart.fullname" . }}-worker
+  name: {{ template "locust.fullname" . }}-worker
   labels:
     component: worker
-    {{- include "chart.labels" . | nindent 4 }}
+    {{- include "locust.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
       component: worker
-      {{- include "chart.selectorLabels" . | nindent 6 }}
+      {{- include "locust.selectorLabels" . | nindent 6 }}
   replicas: {{ .Values.worker.replicaCount }}
   strategy:
     type: RollingUpdate
@@ -21,9 +21,9 @@ spec:
         checksum/config-config: {{ include (print $.Template.BasePath "/configmap-config.yaml") . | sha256sum }}
       labels:
         component: worker
-        {{- include "chart.selectorLabels" . | nindent 8 }}
+        {{- include "locust.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ template "chart.fullname" . }}-worker
+      serviceAccountName: {{ template "locust.fullname" . }}-worker
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -34,7 +34,7 @@ spec:
           - --worker
           - --locustfile=/mnt/locust/main.py
           - --host={{ .Values.loadtest.locust_host }}
-          - --master-host={{ template "chart.fullname" . }}
+          - --master-host={{ template "locust.fullname" . }}
           - --loglevel={{ .Values.worker.logLevel }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
@@ -50,17 +50,17 @@ spec:
           - name: LOCUST_HOST
             value: "{{ .Values.loadtest.locust_host }}"
           - name: LOCUST_MASTER_HOST
-            value: "{{ template "chart.fullname" . }}"
+            value: "{{ template "locust.fullname" . }}"
           - name: LOCUST_MASTER_PORT
             value: "5557"
       restartPolicy: Always
       volumes:
         - name: lib
           configMap:
-            name: {{ template "chart.fullname" . }}-lib
+            name: {{ template "locust.configmap_lib" . }}
         - name: locustfile
           configMap:
-            name: {{ template "chart.fullname" . }}-locustfile
+            name: {{ template "locust.configmap_locustfile" . }}
         - name: config
           configMap:
-            name: {{ template "chart.fullname" . }}-config
+            name: {{ template "locust.fullname" . }}-config

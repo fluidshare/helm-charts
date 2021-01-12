@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "chart.fullname" . }}-master
+  name: {{ template "locust.fullname" . }}-master
   labels:
     component: master
-    {{- include "chart.labels" . | nindent 4 }}
+    {{- include "locust.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
       component: master
-      {{- include "chart.selectorLabels" . | nindent 6 }}
+      {{- include "locust.selectorLabels" . | nindent 6 }}
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -21,9 +21,9 @@ spec:
         checksum/config-config: {{ include (print $.Template.BasePath "/configmap-config.yaml") . | sha256sum }}
       labels:
         component: master
-        {{- include "chart.selectorLabels" . | nindent 8 }}
+        {{- include "locust.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ template "chart.fullname" . }}-master
+      serviceAccountName: {{ template "locust.fullname" . }}-master
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -78,10 +78,10 @@ spec:
       volumes:
         - name: lib
           configMap:
-            name: {{ template "chart.fullname" . }}-lib
+            name: {{ template "locust.configmap_lib" . }}
         - name: locustfile
           configMap:
-            name: {{ template "chart.fullname" . }}-locustfile
+            name: {{ template "locust.configmap_locustfile" . }}
         - name: config
           configMap:
-            name: {{ template "chart.fullname" . }}-config
+            name: {{ template "locust.fullname" . }}-config

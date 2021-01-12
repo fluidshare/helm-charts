@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ include "chart.fullname" . }}
+  name: {{ include "locust.fullname" . }}
   labels:
-    {{- include "chart.labels" . | nindent 4 }}
+    {{- include "locust.labels" . | nindent 4 }}
 spec:
   rules:
     - host: {{ .Values.ingress.host | quote }}
@@ -11,5 +11,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: {{ include "chart.fullname" . }}
+              serviceName: {{ include "locust.fullname" . }}
               servicePort: 8089
