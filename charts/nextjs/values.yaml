@@ -51,6 +51,24 @@ ingress:
   ##
   # tls: nextjs-tls
 
+## CPU and Memory Resource Configuration (This should be enabled with HPA configurations)
+##
+resources: {}
+  # limits:
+  #   cpu: 2000m
+  #   memory: 1024Mi
+  # requests:
+  #   cpu: 1000m
+  #   memory: 1024Mi
+
+## HPA Configuration
+##
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 50
+  targetCPUUtilizationPercentage: 40
+
 ## Tolerations for the pods
 ##
 tolerations: []
