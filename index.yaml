@@ -1,5 +1,30 @@
 apiVersion: v1
 entries:
+  common:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-01-21T19:23:28.117968631Z"
+    description: A Library Helm Chart for grouping common logic between Fluid Truck charts. This chart is not deployable by itself.
+    digest: c758cf32a60e21aed429c8766f2ead7415e60c287b857b19f26072e206cbc393
+    home: https://github.com/fluidshare/helm-charts/tree/main/charts/common
+    icon: https://storage.googleapis.com/fluid-tidal-assets-stage/mclovin.jpg
+    keywords:
+    - common
+    - helper
+    - template
+    - function
+    - fluidtruck
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: common
+    sources:
+    - https://github.com/fluidshare/helm-charts
+    - http://www.fluidtruck.com/
+    type: library
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/common-1.0.0/common-1.0.0.tgz
+    version: 1.0.0
   kube-prometheus-stack:
   - apiVersion: v2
     appVersion: 2.22.1
