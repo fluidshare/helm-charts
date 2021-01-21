@@ -10,10 +10,11 @@ cat <<EOF
 
 EOF
 
-for DIR in $(ls -1 -d ./charts/*)
-do
+for DIR in ./charts/*; do
+  [[ -e "$DIR" ]] || break
+
   FILE="$DIR/Chart.yaml"
-  DIR=$(echo $DIR | sed 's/^\.//')
-  MAINTAINERS=$(yq e -n '(.maintainers.[].name)' $FILE | sed 's/^/@/' | sort --ignore-case)
-  echo $DIR/ $MAINTAINERS
+  DIR=${DIR/./}
+  MAINTAINERS=$(yq e '(.maintainers.[].name)' "$FILE" | sed 's/^/@/' | sort --ignore-case)
+  echo "$DIR/ $MAINTAINERS"
 done
