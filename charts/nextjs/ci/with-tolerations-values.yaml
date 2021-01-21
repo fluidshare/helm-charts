@@ -1,4 +1,0 @@
-tolerations:
-  - key: CiTest
-    operator: Exists
-    effect: NoSchedule

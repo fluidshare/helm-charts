@@ -1,0 +1,5 @@
+ingress:
+  enabled: true
+
+hpa:
+  enabled: true

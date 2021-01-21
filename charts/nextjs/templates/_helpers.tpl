@@ -1,62 +1,26 @@
 {{/*
-Expand the name of the chart.
+Return the proper NextJS image name
 */}}
-{{- define "chart.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "nextjs.image" -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.image) -}}
+{{- end -}}
 
 {{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
+Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "chart.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- define "nextjs.imagePullSecrets" -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image)) -}}
+{{- end -}}
 
 {{/*
-Create chart name and version as used by the chart label.
+Compile all warnings into a single message, and call fail.
 */}}
-{{- define "chart.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "nextjs.validateValues" -}}
+{{- $messages := list -}}
+{{- $messages := without $messages "" -}}
+{{- $message := join "\n" $messages -}}
 
-{{/*
-Common labels
-*/}}
-{{- define "chart.labels" -}}
-helm.sh/chart: {{ include "chart.chart" . }}
-{{ include "chart.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Selector labels
-*/}}
-{{- define "chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "chart.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Allow the release namespace to be overridden for multi-namespace deployments in combined charts
-*/}}
-{{- define "chart.namespace" -}}
-  {{- if .Values.namespaceOverride -}}
-    {{- .Values.namespaceOverride -}}
-  {{- else -}}
-    {{- .Release.Namespace -}}
-  {{- end -}}
+{{- if $message -}}
+{{-   printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
+{{- end -}}\
 {{- end -}}

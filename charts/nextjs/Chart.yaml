@@ -2,7 +2,7 @@ apiVersion: v2
 name: nextjs
 description: A chart for NextJS v10+.
 icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
-version: 1.1.0
+version: 2.0.0
 appVersion: 10.0.5
 type: application
 keywords:
@@ -10,3 +10,9 @@ keywords:
 maintainers:
   - name: ellisio
     email: aellis@fluidtruck.com
+dependencies:
+  - name: common
+    repository: https://fluidshare.github.io/helm-charts
+    tags:
+      - fluidshare-common
+    version: 1.x.x
