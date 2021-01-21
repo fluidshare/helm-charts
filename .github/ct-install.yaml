@@ -1,12 +1,12 @@
-# See https://github.com/helm/chart-testing#configuration
 remote: origin
 target-branch: main
+debug: true
 chart-dirs:
   - charts
+excluded-charts:
+  - common
 chart-repos:
   - fluidshare=https://fluidshare.github.io/helm-charts
   - prometheus-community=https://prometheus-community.github.io/helm-charts
   - grafana=https://grafana.github.io/helm-charts
   - stable=https://charts.helm.sh/stable
-helm-extra-args: --timeout 600s
-validate-maintainers: false
