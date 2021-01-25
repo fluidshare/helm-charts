@@ -174,7 +174,7 @@ ingress:
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##
-  certManager: false
+  # clusterIssuer: "letsencrypt-staging"
 
   ## Ingress Path type
   ##
