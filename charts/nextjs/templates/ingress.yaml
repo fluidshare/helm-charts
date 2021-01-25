@@ -9,7 +9,7 @@ metadata:
     {{- end }}
   annotations:
     {{- if .Values.ingress.clusterIssuer }}
-    cert-manager.io/cluster-issuer: {{- .Values.ingress.clusterIssuer | quote }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer | quote }}
     {{- end }}
     {{- if .Values.ingress.annotations }}
     {{- include "common.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $) | nindent 4 }}
