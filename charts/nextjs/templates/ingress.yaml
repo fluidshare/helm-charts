@@ -46,11 +46,11 @@ spec:
   tls:
     {{- if .Values.ingress.tls }}
     - hosts:
-        - {{ .Values.ingress.hostname }}
-        {{- range .Values.ingress.extraHosts }}
-        - {{ .name }}
-        {{- end }}
-      secretName: {{ printf "%s-tls" .Values.ingress.hostname }}
+      - {{ tpl .Values.ingress.hostname . | quote }}
+      {{- range .Values.ingress.extraHosts }}
+      - {{ .name }}
+      {{- end }}
+      secretName: {{ printf "%s-tls" (tpl .Values.ingress.hostname .) | replace "." "-" }}
     {{- end }}
     {{- if .Values.ingress.extraTls }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.ingress.extraTls "context" $ ) | nindent 4 }}
