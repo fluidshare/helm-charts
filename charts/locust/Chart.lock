@@ -1,0 +1,6 @@
+dependencies:
+- name: common
+  repository: https://fluidshare.github.io/helm-charts
+  version: 1.1.0
+digest: sha256:6bb784691e8561a730d93495106cf7c01dc80a53cfb689d58e237e1c951f8842
+generated: "2021-01-26T12:47:02.702223-07:00"

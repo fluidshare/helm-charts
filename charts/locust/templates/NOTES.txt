@@ -1,11 +1,3 @@
-## To access the locust master UI
+Visit the URL of your Locust app:
 
-{{- if .Values.ingress.enabled }}
-  http://{{ .Values.ingress.host }}
-{{- else }}
-Run this command:
-
-  kubectl --namespace {{ .Release.Namespace }} port-forward service/{{ include "locust.fullname" . }} 8089:8089
-
-Then open in a browser: http://localhost:8089
-{{- end }}
+  http://{{ tpl .Values.master.ingress.hostname . }}
