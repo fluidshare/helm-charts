@@ -285,6 +285,28 @@ entries:
   locust:
   - apiVersion: v2
     appVersion: 1.4.1
+    created: "2021-01-26T22:33:02.604522617Z"
+    dependencies:
+    - name: common
+      repository: https://fluidshare.github.io/helm-charts
+      tags:
+      - fluidshare-common
+      version: 1.x.x
+    description: A Helm chart to launch Locust tests.
+    digest: bc5569d76928a41e10188c94f92e57a3cb710eb674a481cecc457627486aa1f7
+    icon: https://storage.googleapis.com/fluid-tidal-assets-stage/mclovin.jpg
+    keywords:
+    - fluidtruck
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: locust
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/locust-1.0.1/locust-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.4.1
     created: "2021-01-26T22:05:20.132120464Z"
     dependencies:
     - name: common
