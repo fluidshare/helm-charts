@@ -2,15 +2,15 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ template "locust.fullname" . }}
-  labels:
-    component: "worker"
-    {{- include "locust.labels" . | nindent 4 }}
+  name: {{ template "common.names.fullname" . }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    component: worker
+    loadtest: {{ .Values.loadtest.name | quote }}
 spec:
   scaleTargetRef:
+    apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
     kind: Deployment
-    apiVersion: apps/v1
-    name: {{ template "locust.fullname" . }}-worker
+    name: {{ template "common.names.fullname" . }}-worker
   minReplicas: {{ .Values.worker.hpa.minReplicas }}
   maxReplicas: {{ .Values.worker.hpa.maxReplicas }}
   targetCPUUtilizationPercentage: {{ .Values.worker.hpa.targetCPUUtilizationPercentage }}

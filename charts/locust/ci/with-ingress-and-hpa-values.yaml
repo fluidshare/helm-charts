@@ -1,0 +1,8 @@
+master:
+  ingress:
+    enabled: true
+    hostname: "{{ .Release.Name }}.local"
+
+worker:
+  hpa:
+    enabled: true
