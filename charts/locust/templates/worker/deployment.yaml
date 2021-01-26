@@ -51,7 +51,7 @@ spec:
       volumes:
         - name: lib
           configMap:
-            name: {{ template "common.names.fullname" . }}-lib
+            name: {{ template "locust.configmaps.lib" . }}
         - name: locustfile
           configMap:
-            name: {{ template "common.names.fullname" . }}-locustfile
+            name: {{ template "locust.configmaps.locustfile" . }}
