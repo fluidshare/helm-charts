@@ -1,7 +1,7 @@
 apiVersion: v2
 name: locust
 description: A Helm chart to launch Locust tests.
-version: 1.0.0
+version: 1.0.1
 appVersion: 1.4.1
 icon: https://storage.googleapis.com/fluid-tidal-assets-stage/mclovin.jpg
 type: application
