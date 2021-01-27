@@ -2,7 +2,7 @@ apiVersion: v2
 name: nextjs
 description: A chart for NextJS v10+.
 icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
-version: 2.2.0
+version: 2.3.0
 appVersion: 10.0.5
 type: application
 keywords:

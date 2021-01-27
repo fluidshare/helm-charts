@@ -97,7 +97,7 @@ readinessProbe:
 ## NextJS pods' priority.
 ## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 ##
-# priorityClassName: ""
+priorityClassName: ""
 
 ## SecurityContext configuration
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -110,6 +110,18 @@ containerSecurityContext:
 podSecurityContext:
   enabled: true
   fsGroup: 1001
+
+## NextJS containers' lifecycle
+## ref: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/
+##
+lifecycle: {}
+  # preStop:
+  #   exec:
+  #     command: ["sleep", 30]
+
+## NextJS containers' termination grace period
+##
+terminationGracePeriodSeconds: 60
 
 ## NextJS containers' resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
