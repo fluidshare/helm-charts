@@ -119,9 +119,10 @@ lifecycle: {}
   #   exec:
   #     command: ["sleep", 30]
 
-## NextJS containers' termination grace period
+## NextJS containers' termination grace period.
+## ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#podspec-v1-core
 ##
-terminationGracePeriodSeconds: 60
+terminationGracePeriodSeconds: 30
 
 ## NextJS containers' resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

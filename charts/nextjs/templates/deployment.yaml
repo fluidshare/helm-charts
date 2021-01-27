@@ -77,7 +77,7 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
           {{- end }}
-          {{- if .Values.lifecyle -}}
+          {{- if .Values.lifecycle }}
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycle "context" $) | nindent 12 }}
           {{- end }}
           {{- if .Values.resources }}
