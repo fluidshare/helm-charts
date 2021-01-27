@@ -41,6 +41,11 @@ replicaCount: 1
 ##
 applicationPort: 3000
 
+## Affinity for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+
 ## Node labels for pod assignment. Evaluated as a template.
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
@@ -75,7 +80,7 @@ podLabels: {}
 livenessProbe:
   enabled: true
   path: '/'
-  initialDelaySeconds: 10
+  initialDelaySeconds: 60
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 6
@@ -83,13 +88,13 @@ livenessProbe:
 readinessProbe:
   enabled: true
   path: '/'
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   periodSeconds: 5
   timeoutSeconds: 3
   failureThreshold: 3
   successThreshold: 1
 
-## Node pods' priority.
+## NextJS pods' priority.
 ## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 ##
 # priorityClassName: ""
@@ -106,7 +111,7 @@ podSecurityContext:
   enabled: true
   fsGroup: 1001
 
-## Node conatiners' resource requests and limits
+## NextJS containers' resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
 resources:
@@ -120,6 +125,15 @@ resources:
   requests: {}
   #   cpu: 100m
   #   memory: 128Mi
+
+## NextJS Deployment update strategy
+## ref: https://kubernetes.io/docs/reference/kubernetes-api/workloads-resources/deployment-v1/#DeploymentSpec
+##
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 50%
+    maxUnavailable: 0
 
 ## Service parameters
 ##
