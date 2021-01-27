@@ -410,6 +410,28 @@ entries:
   nextjs:
   - apiVersion: v2
     appVersion: 10.0.5
+    created: "2021-01-27T21:24:00.653717203Z"
+    dependencies:
+    - name: common
+      repository: https://fluidshare.github.io/helm-charts
+      tags:
+      - fluidshare-common
+      version: 1.x.x
+    description: A chart for NextJS v10+.
+    digest: 94edccec281c5395474ef13dabdf5059e38acf91b9cfd71ed3c0ca7c862f540f
+    icon: https://cdn.worldvectorlogo.com/logos/next-js.svg
+    keywords:
+    - nextjs
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: nextjs
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/nextjs-2.3.2/nextjs-2.3.2.tgz
+    version: 2.3.2
+  - apiVersion: v2
+    appVersion: 10.0.5
     created: "2021-01-27T21:19:54.608081979Z"
     dependencies:
     - name: common
