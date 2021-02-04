@@ -49,6 +49,29 @@ entries:
     urls:
     - https://github.com/fluidshare/helm-charts/releases/download/common-1.0.0/common-1.0.0.tgz
     version: 1.0.0
+  golang:
+  - apiVersion: v2
+    appVersion: 4.1.17
+    created: "2021-02-04T19:56:43.914407356Z"
+    dependencies:
+    - name: common
+      repository: https://fluidshare.github.io/helm-charts
+      tags:
+      - fluidshare-common
+      version: 1.x.x
+    description: A chart for Golang.
+    digest: 18fbe7b321fc1d6e027379e1e3d4e1985337f69c560456b6176d83377976668d
+    icon: https://golang.org/lib/godoc/images/go-logo-blue.svg
+    keywords:
+    - go
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: golang
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/golang-1.0.0/golang-1.0.0.tgz
+    version: 1.0.0
   locust:
   - apiVersion: v2
     appVersion: 1.4.1
