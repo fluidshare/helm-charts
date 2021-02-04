@@ -1,0 +1,8 @@
+ingress:
+  enabled: true
+  clusterIssuer: "testing"
+  hostname: "{{ .Release.Name }}.local"
+  tls: true
+
+hpa:
+  enabled: true
