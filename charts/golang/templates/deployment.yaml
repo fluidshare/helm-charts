@@ -55,7 +55,10 @@ spec:
             - name: REDIS_PORT
               value: "6379"
             - name: REDISCLI_AUTH
-              value: {{ .Values.redis.password | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis
+                  key: redis-password
           args:
             - /mnt/redis/wait-for-redis.sh
           volumeMounts:
@@ -76,7 +79,10 @@ spec:
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_PASSWORD
-              value: {{ .Values.redis.password | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-redis
+                  key: redis-password
             {{- end }}
             {{- if .Values.envVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.envVars "context" $) | nindent 12 }}
