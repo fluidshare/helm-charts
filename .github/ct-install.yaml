@@ -6,6 +6,7 @@ chart-dirs:
 excluded-charts:
   - common
 chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
   - fluidshare=https://fluidshare.github.io/helm-charts
   - prometheus-community=https://prometheus-community.github.io/helm-charts
   - grafana=https://grafana.github.io/helm-charts

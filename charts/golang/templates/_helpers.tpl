@@ -24,3 +24,25 @@ Compile all warnings into a single message, and call fail.
 {{-   printf "\nVALUES VALIDATION:\n%s" $message | fail -}}
 {{- end -}}\
 {{- end -}}
+
+{{/*
+Print "true" the wait-for-redis should be used.
+Usage:
+{{ include "golang.waitForRedis" . }}
+*/}}
+{{- define "golang.waitForRedis" -}}
+{{- if and (eq .Values.redis.enabled true) (eq .Values.redis.wait true) (.Values.redis.password) -}}
+{{- print "true" -}}
+{{- else -}}
+{{- print "false" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Print hostname for the redis service.
+Usage:
+{{ include "golang.redisHost" . }}
+*/}}
+{{- define "golang.redisHost" -}}
+{{- printf "%s-redis-master.%s.svc.cluster.local" .Release.Name .Release.Namespace | quote -}}
+{{- end -}}
