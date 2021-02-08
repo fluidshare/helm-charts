@@ -45,6 +45,23 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
+      {{- if eq "true" (include "golang.waitForRedis" .) }}
+      initContainers:
+        - name: wait-for-redis
+          image: redis:alpine
+          env:
+            - name: REDIS_HOST
+              value: {{ include "golang.redisHost" . }}
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDISCLI_AUTH
+              value: {{ .Values.redis.password | quote }}
+          args:
+            - /mnt/redis/wait-for-redis.sh
+          volumeMounts:
+            - name: wait-for-redis
+              mountPath: /mnt/redis
+      {{- end }}
       containers:
         - name: nextjs
           image: {{ template "nextjs.image" . }}
@@ -52,6 +69,27 @@ spec:
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
+          env:
+            {{- if .Values.redis.enabled }}
+            - name: REDIS_HOST
+              value: {{ include "golang.redisHost" . }}
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              value: {{ .Values.redis.password | quote }}
+            {{- end }}
+            {{- if .Values.envVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.envVars "context" $) | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- if .Values.envVarsCM }}
+            - configMapRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.envVarsCM "context" $) }}
+            {{- end }}
+            {{- if .Values.envVarsSecret }}
+            - secretRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.envVarsSecret "context" $) }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.applicationPort }}
@@ -83,3 +121,10 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
+      {{- if eq "true" (include "golang.waitForRedis" .) }}
+      volumes:
+        - name: wait-for-redis
+          configMap:
+            name: {{ template "common.names.fullname" . }}-wait-for-redis
+            defaultMode: 0777
+      {{- end }}

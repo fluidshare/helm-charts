@@ -99,6 +99,21 @@ readinessProbe:
 ##
 priorityClassName: ""
 
+## An array to add extra env vars
+## For example:
+##
+envVars: []
+#  - name: BEARER_AUTH
+#    value: true
+
+## ConfigMap with extra environment variables
+##
+envVarsCM:
+
+## Secret with extra environment variables
+##
+envVarsSecret:
+
 ## SecurityContext configuration
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 ##
@@ -297,3 +312,13 @@ hpa:
   ## HPA annotations done as key:value pairs
   ##
   annotations: {}
+
+## Configure the redis service
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
+##
+redis:
+  enabled: false
+  password: ""
+  wait: false
+  cluster:
+    enabled: false
