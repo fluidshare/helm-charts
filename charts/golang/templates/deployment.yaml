@@ -66,7 +66,7 @@ spec:
               mountPath: /mnt/redis
       {{- end }}
       containers:
-        - name: nextjs
+        - name: {{ .Values.name }}
           image: {{ template "nextjs.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.containerSecurityContext.enabled }}
@@ -99,6 +99,11 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.applicationPort }}
+          {{- if .Values.service.grpc }}
+          ports:
+            - name: grpc
+              containerPort: {{ .Values.applicationGrpcPort }}
+          {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
@@ -127,6 +132,10 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
+          env:
+          {{- range .Values.env }}
+          - name: {{ .name }}
+            value: {{ .value }}
       {{- if eq "true" (include "golang.waitForRedis" .) }}
       volumes:
         - name: wait-for-redis
