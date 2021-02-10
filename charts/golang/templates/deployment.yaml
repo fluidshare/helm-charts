@@ -132,10 +132,6 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
-          env:
-          {{- range .Values.env }}
-          - name: {{ .name }}
-            value: {{ .value }}
       {{- if eq "true" (include "golang.waitForRedis" .) }}
       volumes:
         - name: wait-for-redis
