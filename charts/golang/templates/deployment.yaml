@@ -86,7 +86,7 @@ spec:
             {{- end }}
             - name: applicationPort
               value: {{ quote .Values.applicationPort }}
-            {{- if .Values.service.grpc.port }}
+            {{- if .Values.service.grpc.enabled }}
             - name: applicationGrpcPort
               value: {{ quote .Values.service.grpc.port }}
             {{- end }}
