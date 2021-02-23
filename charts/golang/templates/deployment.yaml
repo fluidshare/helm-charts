@@ -105,7 +105,7 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.applicationPort }}
-          {{- if .Values.service.grpc.port }}
+          {{- if .Values.service.grpc.enabled }}
             - name: grpc
               containerPort: {{ .Values.service.grpc.port }}
           {{- end }}

@@ -33,7 +33,7 @@ spec:
       {{- else if eq .Values.service.type "ClusterIP" }}
       nodePort: null
       {{- end }}
-    {{- if .Values.service.grpc.port }}
+    {{- if .Values.service.grpc.enabled }}
     - name: grpc
       port: {{ .Values.service.grpc.port }}
       targetPort: grpc

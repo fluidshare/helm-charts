@@ -177,9 +177,10 @@ service:
   ## For defining a GRPC Port
   ##
   grpc:
+    enabled: true
     ## GRCP Port
     ##
-    # port: 8090
+    port: 8090
     ## Specify the nodePort value for the LoadBalancer and NodePort service types.
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     ##
