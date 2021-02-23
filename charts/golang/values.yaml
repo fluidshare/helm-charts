@@ -177,7 +177,7 @@ service:
   ## For defining a GRPC Port
   ##
   grpc:
-    enabled: true
+    enabled: false
     ## GRCP Port
     ##
     port: 8090
