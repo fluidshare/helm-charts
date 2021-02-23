@@ -177,6 +177,8 @@ service:
   ## For defining a GRPC Port
   ##
   grpc:
+    ## Set to true to enable grpc port
+    ##
     enabled: false
     ## GRCP Port
     ##
