@@ -1,21 +1,21 @@
 {{/*
 Return the proper NextJS image name
 */}}
-{{- define "nextjs.image" -}}
+{{- define "golang.image" -}}
 {{- include "common.images.image" (dict "imageRoot" .Values.image) -}}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "nextjs.imagePullSecrets" -}}
+{{- define "golang.imagePullSecrets" -}}
 {{- include "common.images.pullSecrets" (dict "images" (list .Values.image)) -}}
 {{- end -}}
 
 {{/*
 Compile all warnings into a single message, and call fail.
 */}}
-{{- define "nextjs.validateValues" -}}
+{{- define "golang.validateValues" -}}
 {{- $messages := list -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}

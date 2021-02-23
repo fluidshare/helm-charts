@@ -25,4 +25,4 @@
 
 {{- end }}
 
-{{- include "nextjs.validateValues" . }}
+{{- include "golang.validateValues" . }}

@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ## NextJS image version
-## ref: https://hub.docker.com/r/ellisio/nextjs/tags/
+## ref: https://hub.docker.com/r/ellisio/goecho/tags/
 ##
 image:
   registry: docker.io
@@ -228,7 +228,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: nextjs.local
+  hostname: golang.local
 
   ## The Path to Node.js. You may need to set this to '/*' in order to use this
   ## with ALB ingress controllers.
