@@ -37,9 +37,9 @@ spec:
     - name: grpc
       port: {{ .Values.service.grpc.port }}
       targetPort: grpc
-      {{- if and (or (eq .Values.service.grpc.type "NodePort") (eq .Values.service.grpc.type "LoadBalancer")) (not (empty .Values.service.grpc.nodePort)) }}
+      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePort)) }}
       nodePort: {{ .Values.service.grpc.nodePort  }}
-      {{- else if eq .Values.service.grpc.type "ClusterIP" }}
+      {{- else if eq .Values.service.type "ClusterIP" }}
       nodePort: null
       {{- end }}
     {{- end }}
