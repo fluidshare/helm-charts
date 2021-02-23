@@ -173,6 +173,20 @@ service:
   ## HTTP Port
   ##
   port: 80
+  
+  ## For defining a GRPC Port
+  ##
+  # grpc:
+    ## Specify the port where your application's grpc will be listening from externally
+    ##
+    # applicationPort: 8090
+    ## GRPC Port the application will be listening from internally
+    ##
+    # port: 8090
+    ## Specify the nodePort value for the LoadBalancer and NodePort service types.
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    ##
+    # nodePort:
 
   ## clusterIP: ""
   ## loadBalancerIP for the Node Service (optional, cloud specific)

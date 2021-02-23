@@ -88,7 +88,7 @@ spec:
               value: {{ quote .Values.applicationPort }}
             {{- if .Values.service.grpc }}
             - name: applicationGrpcPort
-              value: {{ quote .Values.applicationGrpcPort }}
+              value: {{ quote .Values.service.grpc.applicationPort }}
             {{- end }}
             {{- if .Values.envVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.envVars "context" $) | nindent 12 }}
@@ -107,7 +107,7 @@ spec:
               containerPort: {{ .Values.applicationPort }}
           {{- if .Values.service.grpc }}
             - name: grpc
-              containerPort: {{ .Values.applicationGrpcPort }}
+              containerPort: {{ .Values.service.grpc.applicationPort }}
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
