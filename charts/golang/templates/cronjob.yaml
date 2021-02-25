@@ -1,0 +1,100 @@
+{{- $top := . }}
+{{- range .Values.cronjobs }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .name | quote }}
+  labels: {{- include "common.labels.standard" $top | nindent 4 }}
+    cronjob: {{ .name | quote }}
+    {{- if $top.Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" $top.Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if $top.Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $top.Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  schedule: {{ .schedule | quote }}
+  successfulJobsHistoryLimit: {{ default "0" .successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ default "0" .failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            cronjob: {{ .name | quote }}
+        spec:
+          restartPolicy: OnFailure
+          {{- if $top.Values.containerSecurityContext.enabled }}
+          securityContext: {{- omit $top.Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if eq "true" (include "golang.waitForRedis" $top) }}
+          initContainers:
+            - name: wait-for-redis
+              image: redis:alpine
+              env:
+                - name: REDIS_HOST
+                  value: {{ include "golang.redisHost" $top }}
+                - name: REDIS_PORT
+                  value: "6379"
+                - name: REDISCLI_AUTH
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $top.Release.Name }}-redis
+                      key: redis-password
+              args:
+                - /mnt/redis/wait-for-redis.sh
+              volumeMounts:
+                - name: wait-for-redis
+                  mountPath: /mnt/redis
+          {{- end }}
+          containers:
+          - name: {{ .name | quote }}
+            image: {{ template "golang.image" $top }}
+            imagePullPolicy: {{ $top.Values.image.pullPolicy | quote }}
+            {{- if typeIs "string" .command }}
+            command:
+              - sh
+              - -c
+              - {{ .command | quote }}
+            {{- else }}
+            command: {{- include "common.tplvalues.render" (dict "value" .command "context" $) | nindent 14 }}
+            {{- end }}
+            env:
+              {{- if $top.Values.redis.enabled }}
+              - name: REDIS_HOST
+                value: {{ include "golang.redisHost" $top }}
+              - name: REDIS_PORT
+                value: "6379"
+              - name: REDIS_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ $top.Release.Name }}-redis
+                    key: redis-password
+              {{- end }}
+              {{- if $top.Values.envVars }}
+              {{- include "common.tplvalues.render" (dict "value" $top.Values.envVars "context" $) | nindent 12 }}
+              {{- end }}
+            envFrom:
+              {{- if $top.Values.envVarsCM }}
+              - configMapRef:
+                  name: {{ include "common.tplvalues.render" (dict "value" $top.Values.envVarsCM "context" $) }}
+              {{- end }}
+              {{- if $top.Values.envVarsSecret }}
+              - secretRef:
+                  name: {{ include "common.tplvalues.render" (dict "value" $top.Values.envVarsSecret "context" $) }}
+              {{- end }}
+            {{- if .lifecycle }}
+            lifecycle: {{- include "common.tplvalues.render" (dict "value" .lifecycle "context" $) | nindent 12 }}
+            {{- end }}
+            {{- if .resources }}
+            resources: {{- toYaml .resources | nindent 12 }}
+            {{- end }}
+          {{- if eq "true" (include "golang.waitForRedis" $top) }}
+          volumes:
+            - name: wait-for-redis
+              configMap:
+                name: {{ template "common.names.fullname" $top }}-wait-for-redis
+                defaultMode: 0777
+          {{- end }}
+{{- end }}

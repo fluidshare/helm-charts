@@ -84,12 +84,6 @@ spec:
                   name: {{ .Release.Name }}-redis
                   key: redis-password
             {{- end }}
-            - name: applicationPort
-              value: {{ quote .Values.applicationPort }}
-            {{- if .Values.service.grpc.enabled }}
-            - name: applicationGrpcPort
-              value: {{ quote .Values.service.grpc.port }}
-            {{- end }}
             {{- if .Values.envVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.envVars "context" $) | nindent 12 }}
             {{- end }}
