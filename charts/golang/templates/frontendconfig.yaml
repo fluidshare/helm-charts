@@ -1,5 +1,5 @@
-{{- if and .Values.ingress.tls .Values.ingress.forceHttps }}
-apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+{{- if and .Values.ingress.enabled .Values.ingress.tls .Values.ingress.forceHttps }}
+apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
   name: force-https
