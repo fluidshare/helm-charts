@@ -84,8 +84,13 @@ spec:
                   name: {{ .Release.Name }}-redis
                   key: redis-password
             {{- end }}
-            {{- if .Values.envVars }}
-            {{- include "common.tplvalues.render" (dict "value" .Values.envVars "context" $) | nindent 12 }}
+            {{- range $key, $value := .Values.envVars }}
+            - name: {{ $key }}
+              {{- if or (typeIs "string" $value) (typeIs "float64" $value) (typeIs "bool" $value) }}
+              value: {{ include "common.tplvalues.render" (dict "value" $value "context" $) }}
+              {{- else }}
+              {{- include "common.tplvalues.render" (dict "value" $value "context" $) | nindent 14 }}
+              {{- end }}
             {{- end }}
           envFrom:
             {{- if .Values.envVarsCM }}

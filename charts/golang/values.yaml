@@ -102,9 +102,14 @@ priorityClassName: ""
 ## An array to add extra env vars
 ## For example:
 ##
-envVars: []
-#  - name: BEARER_AUTH
-#    value: true
+envVars: {}
+  # BEARER_AUTH: true
+  # OTHER_VAR: "foo"
+  # SOME_PASSWORD:
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: some-ref
+  #       key: redis-password
 
 ## ConfigMap with extra environment variables
 ##
