@@ -2,8 +2,11 @@ dependencies:
 - name: common
   repository: https://fluidshare.github.io/helm-charts
   version: 1.1.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.3.13
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 12.7.3
-digest: sha256:20f735dfca6d69f8bfb1bfe45a5b115c5ad5320f31332c64fd542081edec113b
-generated: "2021-02-08T09:36:55.915465-07:00"
+digest: sha256:e2edaee86fbe79bc52924c7fe2da491112127442cc8ad67d9eec0951dfe32334
+generated: "2021-03-29T10:34:30.939506-06:00"

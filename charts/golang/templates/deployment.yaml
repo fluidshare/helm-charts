@@ -45,8 +45,9 @@ spec:
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
-      {{- if eq "true" (include "golang.waitForRedis" .) }}
+      {{- if or (eq "true" (include "golang.waitForRedis" .)) (eq "true" (include "golang.waitForPostgresql" .)) }}
       initContainers:
+        {{- if eq "true" (include "golang.waitForRedis" .) }}
         - name: wait-for-redis
           image: redis:alpine
           env:
@@ -64,6 +65,26 @@ spec:
           volumeMounts:
             - name: wait-for-redis
               mountPath: /mnt/redis
+        {{- end }}
+        {{- if eq "true" (include "golang.waitForPostgresql" .) }}
+        - name: wait-for-postgresql
+          image: postgres:alpine
+          env:
+            - name: POSTGRESQL_HOST
+              value: {{ include "golang.postgresqlHost" . }}
+            - name: POSTGRESQL_USERNAME
+              value: {{ .Values.postgresql.postgresqlUsername }}
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql
+                  key: postgresql-password
+          args:
+            - /mnt/postgresql/wait-for-postgresql.sh
+          volumeMounts:
+            - name: wait-for-postgresql
+              mountPath: /mnt/postgresql
+        {{- end }}
       {{- end }}
       containers:
         - name: app
@@ -83,6 +104,17 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-redis
                   key: redis-password
+            {{- end }}
+            {{- if .Values.postgresql.enabled }}
+            - name: POSTGRESQL_HOST
+              value: {{ include "golang.postgresqlHost" . }}
+            - name: POSTGRESQL_PORT
+              value: "5432"
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql
+                  key: postgresql-password
             {{- end }}
             {{- range $key, $value := .Values.envVars }}
             - name: {{ $key }}
@@ -136,10 +168,18 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
-      {{- if eq "true" (include "golang.waitForRedis" .) }}
+      {{- if or (eq "true" (include "golang.waitForRedis" .)) (eq "true" (include "golang.waitForPostgresql" .)) }}
       volumes:
+        {{- if or (eq "true" (include "golang.waitForRedis" .)) }}
         - name: wait-for-redis
           configMap:
             name: {{ template "common.names.fullname" . }}-wait-for-redis
             defaultMode: 0777
+        {{- end }}
+        {{- if or (eq "true" (include "golang.waitForPostgresql" .)) }}
+        - name: wait-for-postgresql
+          configMap:
+            name: {{ template "common.names.fullname" . }}-wait-for-postgresql
+            defaultMode: 0777
+        {{- end }}
       {{- end }}

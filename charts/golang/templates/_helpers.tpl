@@ -26,6 +26,28 @@ Compile all warnings into a single message, and call fail.
 {{- end -}}
 
 {{/*
+Print "true" the wait-for-postgresql should be used.
+Usage:
+{{ include "golang.waitForPostgresql" . }}
+*/}}
+{{- define "golang.waitForPostgresql" -}}
+{{- if and (eq .Values.postgresql.enabled true) (eq .Values.postgresql.wait true) (.Values.postgresql.postgresqlPassword) -}}
+{{- print "true" -}}
+{{- else -}}
+{{- print "false" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Print hostname for the postgresql service.
+Usage:
+{{ include "golang.postgresqlHost" . }}
+*/}}
+{{- define "golang.postgresqlHost" -}}
+{{- printf "%s-postgresql.%s.svc.cluster.local" .Release.Name .Release.Namespace | quote -}}
+{{- end -}}
+
+{{/*
 Print "true" the wait-for-redis should be used.
 Usage:
 {{ include "golang.waitForRedis" . }}

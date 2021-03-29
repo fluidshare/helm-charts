@@ -348,6 +348,16 @@ hpa:
   #   lifecyle: {}
   #   resources: {}
 
+## Configure the postgresql service
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+##
+postgresql:
+  enabled: false
+  postgresqlUsername: postgresql
+  postgresqlPassword: ""
+  postgresqlDatabase: ""
+  wait: false
+
 ## Configure the redis service
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
 ##

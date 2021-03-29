@@ -2,7 +2,7 @@ apiVersion: v2
 name: golang
 description: A chart for Golang.
 icon: https://golang.org/lib/godoc/images/go-logo-blue.svg
-version: 2.0.1
+version: 2.1.0
 appVersion: 4.1.17
 type: application
 keywords:
@@ -16,6 +16,12 @@ dependencies:
     tags:
       - fluidshare-common
     version: 1.x.x
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - postgresql
+    version: "10.3.13"
+    condition: postgresql.enabled
   - name: redis
     repository: https://charts.bitnami.com/bitnami
     tags:
