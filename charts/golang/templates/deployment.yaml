@@ -87,7 +87,7 @@ spec:
             {{- range $key, $value := .Values.envVars }}
             - name: {{ $key }}
               {{- if or (typeIs "string" $value) (typeIs "float64" $value) (typeIs "bool" $value) }}
-              value: {{ include "common.tplvalues.render" (dict "value" $value "context" $) }}
+              value: {{ include "common.tplvalues.render" (dict "value" $value "context" $) | quote }}
               {{- else }}
               {{- include "common.tplvalues.render" (dict "value" $value "context" $) | nindent 14 }}
               {{- end }}
