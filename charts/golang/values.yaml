@@ -21,6 +21,10 @@ image:
   # pullSecrets:
   #   - myRegistryKeySecretName
 
+## Make the GitHub username available for templating.
+##
+githubUsername:
+
 ## Force target Kubernetes version (using Helm capabilites if not set)
 ##
 kubeVersion:
