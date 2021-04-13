@@ -6,4 +6,7 @@ cronjobs:
       repository: busybox
       tag: latest
     command:
-      - date; echo Hello
+      - sh
+      - -c
+      - "date; echo Hello"
+    successfulJobsHistoryLimit: 3

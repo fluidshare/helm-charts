@@ -352,7 +352,9 @@ hpa:
 #       # # pullSecrets:
 #       # #   - myRegistryKeySecretName
 #     command:
-#       - date; echo Hello
+#       - sh
+#       - -c
+#       - "date; echo Hello"
 #     successfulJobsHistoryLimit: 0
 #     failedJobsHistoryLimit: 0
 #     lifecyle: {}
