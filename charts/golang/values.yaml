@@ -343,14 +343,20 @@ hpa:
 ## CronJob Parameters
 ##
 # cronjobs:
-  # - name: hello
-  #   schedule: "*/1 * * * *"
-  #   command:
-  #     - date; echo Hello
-  #   successfulJobsHistoryLimit: 0
-  #   failedJobsHistoryLimit: 0
-  #   lifecyle: {}
-  #   resources: {}
+#   - name: hello
+#     schedule: "*/1 * * * *"
+#     # image:
+#       # registry: docker.io
+#       # repository: ellisio/goecho
+#       # tag: "4.1.17"
+#       # # pullSecrets:
+#       # #   - myRegistryKeySecretName
+#     command:
+#       - date; echo Hello
+#     successfulJobsHistoryLimit: 0
+#     failedJobsHistoryLimit: 0
+#     lifecyle: {}
+#     resources: {}
 
 ## Configure the postgresql service
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml

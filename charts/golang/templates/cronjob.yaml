@@ -71,8 +71,13 @@ spec:
           {{- end }}
           containers:
           - name: {{ .name | quote }}
+            {{- if hasKey . "image" }}
+            image: {{ include "common.images.image" (dict "imageRoot" .image) }}
+            imagePullPolicy: {{ .image.pullPolicy | quote }}
+            {{- else }}
             image: {{ template "golang.image" $top }}
             imagePullPolicy: {{ $top.Values.image.pullPolicy | quote }}
+            {{- end }}
             {{- if typeIs "string" .command }}
             command:
               - sh
