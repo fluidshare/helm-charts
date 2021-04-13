@@ -1,0 +1,9 @@
+cronjobs:
+  - name: hello
+    schedule: "*/1 * * * *"
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: latest
+    command:
+      - date; echo Hello
