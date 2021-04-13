@@ -28,8 +28,9 @@ spec:
           {{- if $top.Values.containerSecurityContext.enabled }}
           securityContext: {{- omit $top.Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
-          {{- if eq "true" (include "golang.waitForRedis" $top) }}
+          {{- if or (eq "true" (include "golang.waitForRedis" $top)) (eq "true" (include "golang.waitForPostgresql" $top)) }}
           initContainers:
+            {{- if eq "true" (include "golang.waitForRedis" $top) }}
             - name: wait-for-redis
               image: redis:alpine
               env:
@@ -47,6 +48,26 @@ spec:
               volumeMounts:
                 - name: wait-for-redis
                   mountPath: /mnt/redis
+            {{- end }}
+            {{- if eq "true" (include "golang.waitForPostgresql" $top) }}
+            - name: wait-for-postgresql
+              image: postgres:alpine
+              env:
+                - name: POSTGRESQL_HOST
+                  value: {{ include "golang.postgresqlHost" $top }}
+                - name: POSTGRESQL_USERNAME
+                  value: {{ $top.Values.postgresql.postgresqlUsername }}
+                - name: POSTGRESQL_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ $top.Release.Name }}-postgresql
+                      key: postgresql-password
+              args:
+                - /mnt/postgresql/wait-for-postgresql.sh
+              volumeMounts:
+                - name: wait-for-postgresql
+                  mountPath: /mnt/postgresql
+            {{- end }}
           {{- end }}
           containers:
           - name: {{ .name | quote }}
@@ -72,8 +93,13 @@ spec:
                     name: {{ $top.Release.Name }}-redis
                     key: redis-password
               {{- end }}
-              {{- if $top.Values.envVars }}
-              {{- include "common.tplvalues.render" (dict "value" $top.Values.envVars "context" $) | nindent 12 }}
+              {{- range $key, $value := $top.Values.envVars }}
+              - name: {{ $key }}
+                {{- if or (typeIs "string" $value) (typeIs "float64" $value) (typeIs "bool" $value) }}
+                value: {{ include "common.tplvalues.render" (dict "value" $value "context" $) | quote }}
+                {{- else }}
+                {{- include "common.tplvalues.render" (dict "value" $value "context" $) | nindent 14 }}
+                {{- end }}
               {{- end }}
             envFrom:
               {{- if $top.Values.envVarsCM }}
@@ -90,11 +116,19 @@ spec:
             {{- if .resources }}
             resources: {{- toYaml .resources | nindent 12 }}
             {{- end }}
-          {{- if eq "true" (include "golang.waitForRedis" $top) }}
+          {{- if or (eq "true" (include "golang.waitForRedis" $top)) (eq "true" (include "golang.waitForPostgresql" $top)) }}
           volumes:
+            {{- if or (eq "true" (include "golang.waitForRedis" $top)) }}
             - name: wait-for-redis
               configMap:
                 name: {{ template "common.names.fullname" $top }}-wait-for-redis
                 defaultMode: 0777
+            {{- end }}
+            {{- if or (eq "true" (include "golang.waitForPostgresql" $top)) }}
+            - name: wait-for-postgresql
+              configMap:
+                name: {{ template "common.names.fullname" $top }}-wait-for-postgresql
+                defaultMode: 0777
+            {{- end }}
           {{- end }}
 {{- end }}

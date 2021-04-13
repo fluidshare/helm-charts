@@ -7,6 +7,9 @@ cronjobs:
     command:
       - date; echo Hello
 
-redis:
+postgresql:
   enabled: true
-  password: password
+  wait: true
+  postgresqlUsername: fluid
+  postgresqlPassword: password
+  postgresqlDatabase: golang
