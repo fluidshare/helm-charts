@@ -136,10 +136,10 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.applicationPort }}
-          {{- if .Values.service.grpc.enabled }}
+            {{- if .Values.grpc.enabled }}
             - name: grpc
-              containerPort: {{ .Values.service.grpc.port }}
-          {{- end }}
+              containerPort: {{ .Values.grpc.port }}
+            {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:

@@ -4,8 +4,3 @@ envVars:
   FLOAT_TEST: 0.2
   STRING_TEST: "test"
   TEMPLATE_TEST: "{{ .Release.Name }}-test"
-  OBJECT_TEST:
-    valueFrom:
-      secretKeyRef:
-        name: test
-        key: test

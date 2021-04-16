@@ -1,6 +1,2 @@
-ingress:
+grpc:
   enabled: true
-
-service:
-  grpc:
-    enabled: true
