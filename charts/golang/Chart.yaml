@@ -2,7 +2,7 @@ apiVersion: v2
 name: golang
 description: A chart for Golang.
 icon: https://golang.org/lib/godoc/images/go-logo-blue.svg
-version: 2.3.2
+version: 2.4.0
 appVersion: 4.1.17
 type: application
 keywords:

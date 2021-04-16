@@ -4,4 +4,3 @@ ingress:
 service:
   grpc:
     enabled: true
-    port: 8090
