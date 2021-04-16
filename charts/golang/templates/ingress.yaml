@@ -31,6 +31,13 @@ spec:
             pathType: {{ .Values.ingress.pathType }}
             {{- end }}
             backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" .) "servicePort" "http" "context" $)  | nindent 14 }}
+          {{- if .Values.service.grpc.enabled }}
+          - path: {{ .Values.ingress.path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
+            pathType: {{ .Values.ingress.pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" .) "servicePort" "grpc" "context" $)  | nindent 14 }}
+          {{- end }}
     {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ tpl .name . | quote }}

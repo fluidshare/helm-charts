@@ -1,3 +1,7 @@
-grpc:
+ingress:
   enabled: true
-  port: 8090
+
+service:
+  grpc:
+    enabled: true
+    port: 8090
