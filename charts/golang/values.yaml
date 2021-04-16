@@ -183,26 +183,6 @@ service:
   ##
   port: 80
 
-  ## gRPC Configuration
-  ##
-  grpc:
-    ## Set to true to enable gRPC
-    ##
-    enabled: false
-
-    ## Port
-    ##
-    port: 8090
-
-    ## Path
-    ##
-    path: /grpc
-
-    ## Specify the nodePort value for the LoadBalancer and NodePort service types.
-    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
-    ##
-    # nodePort:
-
   ## clusterIP: ""
   ## loadBalancerIP for the Node Service (optional, cloud specific)
   ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
@@ -365,6 +345,23 @@ hpa:
 #     failedJobsHistoryLimit: 0
 #     lifecyle: {}
 #     resources: {}
+
+## gRPC Configuration
+##
+grpc:
+  ## Set to true to enable gRPC
+  ##
+  enabled: false
+
+  ## Port
+  ##
+  port: 8090
+
+  ## Ingress
+  ingress:
+    enabled: false
+    hostname: golang-grpc.local
+    annotations: {}
 
 ## Configure the postgresql service
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
