@@ -49,6 +49,41 @@ entries:
     urls:
     - https://github.com/fluidshare/helm-charts/releases/download/common-1.0.0/common-1.0.0.tgz
     version: 1.0.0
+  cronjob:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-04-29T19:01:04.472698896Z"
+    dependencies:
+    - name: common
+      repository: https://fluidshare.github.io/helm-charts
+      tags:
+      - fluidshare-common
+      version: 1.x.x
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - postgresql
+      version: 10.3.13
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - redis
+      version: 12.7.3
+    description: A chart for CronJobs.
+    digest: b15a50300771323a2765754beaaeb3d3c74f5ec8380359ad99673b55c0871c2e
+    icon: https://contino.github.io/intro-k8/images/kubernetes/cronjob.png
+    keywords:
+    - cronjob
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: cronjob
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/cronjob-1.0.0/cronjob-1.0.0.tgz
+    version: 1.0.0
   golang:
   - apiVersion: v2
     appVersion: 4.1.17
