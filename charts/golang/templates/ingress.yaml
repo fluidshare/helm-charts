@@ -62,6 +62,9 @@ spec:
       {{- if and .Values.grpc.enabled .Values.grpc.ingress.enabled }}
       - {{ tpl .Values.grpc.ingress.hostname . | quote }}
       {{- end }}
+      {{- if .Values.swagger.enabled }}
+      - {{ tpl .Values.swagger.ingress.hostname . | quote }}
+      {{- end }}
       {{- range .Values.ingress.extraHosts }}
       - {{ .name }}
       {{- end }}
