@@ -11,7 +11,10 @@ metadata:
     {{- include "common.tplvalues.render" ( dict "value" $top.Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if $top.Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" $top.Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations:
+    {{- if $top.Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" $top.Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
   schedule: {{ .schedule | quote }}
