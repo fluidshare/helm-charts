@@ -358,10 +358,37 @@ grpc:
   port: 8090
 
   ## Ingress
+  ##
   ingress:
     enabled: false
     hostname: golang-grpc.local
     annotations: {}
+
+## Swagger Configuration
+##
+swagger:
+  ## Set to true to enable Swagger
+  ##
+  enabled: false
+
+  ## Port
+  ##
+  port: 8081
+
+  ## Ingress
+  ##
+  ingress:
+    hostname: golang-swagger.local
+    annotations: {}
+
+  ## Image
+  ##
+  # image:
+  #   registry: docker.io
+  #   repository: ellisio/go-swagger
+  #   tag: "v0.27.0"
+  #   # pullSecrets:
+  #   #   - myRegistryKeySecretName
 
 ## Configure the postgresql service
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
