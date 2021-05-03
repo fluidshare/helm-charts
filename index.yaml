@@ -87,6 +87,40 @@ entries:
   golang:
   - apiVersion: v2
     appVersion: 4.1.17
+    created: "2021-05-03T20:43:32.823405117Z"
+    dependencies:
+    - name: common
+      repository: https://fluidshare.github.io/helm-charts
+      tags:
+      - fluidshare-common
+      version: 1.x.x
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - postgresql
+      version: 10.3.13
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - redis
+      version: 12.7.3
+    description: A chart for Golang.
+    digest: 4f4e0306f4522de30190ec6c438e1a9b521caefa0a16cbe373e4550ef4db79e2
+    icon: https://golang.org/lib/godoc/images/go-logo-blue.svg
+    keywords:
+    - go
+    maintainers:
+    - email: aellis@fluidtruck.com
+      name: ellisio
+    name: golang
+    type: application
+    urls:
+    - https://github.com/fluidshare/helm-charts/releases/download/golang-3.1.0/golang-3.1.0.tgz
+    version: 3.1.0
+  - apiVersion: v2
+    appVersion: 4.1.17
     created: "2021-04-16T19:53:20.576505718Z"
     dependencies:
     - name: common
