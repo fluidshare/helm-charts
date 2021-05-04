@@ -9,7 +9,7 @@ metadata:
   {{- if or .Values.swagger.enabled .Values.service.annotations .Values.commonAnnotations }}
   annotations:
     {{- if .Values.swagger.enabled }}
-    cloud.google.com/backend-config: '{"ports":{"swagger":"swagger"}}'
+    cloud.google.com/backend-config: {{ printf "'{\"ports\":{\"swagger\":\"%s-swagger\"}}'" .Release.Name }}
     {{- end }}
     {{- if .Values.service.annotations }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.service.annotations "context" $) | nindent 4 }}
