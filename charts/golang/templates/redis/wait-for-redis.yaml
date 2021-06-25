@@ -12,11 +12,11 @@ data:
     #/bin/sh
 
     set -x;
-    echo "Waiting for Redis on ${REDIS_HOST}:${REDIS_PORT}"
+    echo "Waiting for Redis on ${REDIS_URL}:${REDIS_PORT}"
 
     ATTEMPTS=0
 
-    until [[ $(redis-cli -h "${REDIS_HOST}" -p "${REDIS_PORT}" ping) == "PONG" ]]; do
+    until [[ $(redis-cli -h "${REDIS_URL}" -p "${REDIS_PORT}" ping) == "PONG" ]]; do
       if [ $ATTEMPTS -gt 500 ]; then
         echo "Failed to connect to Redis."
         exit 1
